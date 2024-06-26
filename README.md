@@ -4,7 +4,7 @@ This is a FastAPI application that provides a text summarization service using l
 
 ## Prerequisites
 
-- Python 3.8+
+- Python 3.12+
 - pip
 
 ## Installation
