@@ -9,9 +9,17 @@ app = FastAPI(
 )
 
 class TextInput(BaseModel):
+    '''
+    Stores the user text input.
+    '''
+
     text: str = Field(..., min_length=1, description="The text to be summarized")
 
     class Config:
+        '''
+        Example body of how input request should look like.
+        '''
+
         schema_extra = {
             "example": {
                 "text": "Lorem Ipsum is simply dummy text of the printing\
@@ -23,9 +31,18 @@ class TextInput(BaseModel):
         }
 
 class SummaryOutput(BaseModel):
+    '''
+    Stores the output text processed by the model.
+    '''
+
     summary: str = Field(..., description="The summarized text")
 
 def summarize(text: str) -> str:
+    '''
+    Using libraries from LangChain framework and Cohere's model, processes
+    the text and returns summary.
+    '''
+
     prompt_template = """Write a short summary of the following text: "{text}" """
     prompt = PromptTemplate.from_template(prompt_template)
     llm = Cohere()
@@ -35,6 +52,10 @@ def summarize(text: str) -> str:
 
 @app.post("/summarize", response_model=SummaryOutput)
 async def summarize_text(input: TextInput) -> Dict[str, str]:
+    '''
+    Single POST request function. Handles any unusual error with code 500.
+    '''
+
     try:
         summary = summarize(input.text)
         return {"summary": summary}

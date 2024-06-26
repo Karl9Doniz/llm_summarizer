@@ -30,4 +30,4 @@ uvicorn main:app --reload
 
 ## Testing
 
-Go to [127.0.0.1/docs](http://127.0.0.1:8000/docs)
+Go to [127.0.0.1/docs](http://127.0.0.1:8000/docs). Try using the UI with API for sending requests.
